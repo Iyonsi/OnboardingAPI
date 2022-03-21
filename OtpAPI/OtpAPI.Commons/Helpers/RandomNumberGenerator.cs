@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OtpApi.Commons.Helpers
 {
-    public static class RandomNumberGenerator
+    public class RandomNumberGenerator
     {
-        public static string GenerateRandomNumber()
+        public string GenerateRandomNumber()
         {
             Random random = new Random();
             return random.Next(999999).ToString();
