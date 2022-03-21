@@ -6,6 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using OtpApi.Commons.Extensions;
+using OtpApi.Commons.Helpers;
+using OtpAPI.OtpAPI.Data.Repositories.Implementations;
+using OtpAPI.OtpAPI.Data.Repositories.Interfaces;
+using OtpAPI.OtpAPI.Services.Implementations;
+using OtpAPI.OtpAPI.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,17 +21,24 @@ namespace OtpAPI
 {
     public class Startup
     {
+        
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        private readonly IWebHostEnvironment _env;
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IOtpApiService , OtpApiService>();
+            services.AddScoped<IOtpApiRepository , OtpApiRepository>();
 
+
+            services.AddDbContextExtension(Configuration, _env);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

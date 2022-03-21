@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OtpApi.Commons.Helpers
 {
-    public static class RandomNumberGenerator
+    public static class RandomNumberGenerator 
     {
         public static string GenerateRandomNumber()
         {
