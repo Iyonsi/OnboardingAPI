@@ -16,10 +16,7 @@ namespace OtpAPI.OtpAPI.Data.Repositories.Implementations
 
         public async Task<OtpUser> GetUser(string id)
         {
-            return await _context.OtpUsers.Include(x => x.PhoneNumber)
-                                           .Include(x => x.UserName)
-                                           .Include(x => x.Id)
-                                           .SingleOrDefaultAsync();
+            return _context.OtpUsers.Find(id);
         }
     }
 }

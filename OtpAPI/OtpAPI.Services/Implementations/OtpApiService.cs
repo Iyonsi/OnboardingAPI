@@ -9,26 +9,24 @@ namespace OtpAPI.OtpAPI.Services.Implementations
     public class OtpApiService : IOtpApiService
     {
         private readonly IOtpApiRepository _otpApiRepository;
-        private readonly RandomNumberGenerator _randomNumberGenerator;
 
-        public OtpApiService(IOtpApiRepository otpApiRepository, RandomNumberGenerator randomNumberGenerator)
+        public OtpApiService(IOtpApiRepository otpApiRepository )
         {
             _otpApiRepository = otpApiRepository;
-            _randomNumberGenerator = randomNumberGenerator;
         }
 
         public async Task<OtpUserToReturnDto> VerifyPhoneNumber(string id, string phoneNumber)
         {
-            var UnVerifiedNumber = await _otpApiRepository.GetUser(id);
-            if (UnVerifiedNumber.PhoneNumber != phoneNumber)
+            var unVerifiedNumber = await _otpApiRepository.GetUser(id);
+            if (unVerifiedNumber == null) 
                 return null;
-            var otp = _randomNumberGenerator.GenerateRandomNumber();
+            var otp = RandomNumberGenerator.GenerateRandomNumber();
 
             OtpUserToReturnDto returnDto = new OtpUserToReturnDto()
             {
-                Id = UnVerifiedNumber.Id,
-                PhoneNumber = UnVerifiedNumber.PhoneNumber,
-                UserName = UnVerifiedNumber.UserName,
+                Id = unVerifiedNumber.Id,
+                PhoneNumber = unVerifiedNumber.PhoneNumber,
+                UserName = unVerifiedNumber.UserName,
                 Otp = otp,
             };
             return returnDto;

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-namespace DecaBlog.Models.DTO
+namespace OtpAPI.OtpAPI.Models.DTO
 {
     public class ResponseDto<T>
     {

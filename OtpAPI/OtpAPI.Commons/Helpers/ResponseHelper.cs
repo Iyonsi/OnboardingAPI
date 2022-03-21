@@ -1,8 +1,8 @@
-﻿using DecaBlog.Models.DTO;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using OtpAPI.OtpAPI.Models.DTO;
 using System.Collections.Generic;
 
-namespace DecaBlog.Commons.Helpers
+namespace OtpApi.Commons.Helpers
 {
     public static class ResponseHelper
     {
