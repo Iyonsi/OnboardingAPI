@@ -27,5 +27,17 @@ namespace OtpApi.Controllers
             }
             return Ok(ResponseHelper.BuildResponse<object>(true, "An Otp Has Been Sent To Your Phone Number", ResponseHelper.NoErrors, unVerifiedNumber));
         }
+
+        [HttpPost("verify-otp{otpCode}")]
+        public async Task<IActionResult> VerifyOtp (string otpCode)
+        {
+            var unVerifiedOtp = await _otpApiService.VerifyOtp(otpCode);
+            if (unVerifiedOtp == null)
+            {
+                ModelState.AddModelError("Not found", "");
+                return NotFound(ResponseHelper.BuildResponse<object>(false, "Otp has expired", ModelState, null));
+            }
+            return Ok(ResponseHelper.BuildResponse<object>(true, "Phone number verified successfully", ResponseHelper.NoErrors, unVerifiedOtp));
+        }
     }
 }

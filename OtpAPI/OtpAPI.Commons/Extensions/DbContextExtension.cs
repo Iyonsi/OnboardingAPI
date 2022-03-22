@@ -11,7 +11,7 @@ namespace OtpApi.Commons.Extensions
         public static void AddDbContextExtension(this IServiceCollection services, IConfiguration config, IWebHostEnvironment _env)
         {
             services.AddDbContextPool<OtpApiDbContext>(options =>
-            options.UseSqlite(config.GetConnectionString("Default")));
+            options.UseSqlServer(config.GetConnectionString("Default")));
         }
     }
 }

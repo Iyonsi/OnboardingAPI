@@ -5,6 +5,7 @@ namespace OtpAPI.OtpAPI.Services.Interfaces
 {
     public interface IOtpApiService
     {
-        Task<OtpUserToReturnDto> VerifyPhoneNumber(string id, string phoneNumber);
+        Task<OtpToReturnDto> VerifyPhoneNumber(string id, string phoneNumber);
+        Task<OtpConfirmationToReturnDto> VerifyOtp(string otpCode);
     }
 }
