@@ -18,5 +18,17 @@ namespace OtpAPI.OtpAPI.Data.Repositories.Implementations
         {
             return _context.OtpUsers.Find(id);
         }
+        public async Task<Otp> GetOtp(string otpCode)
+        {
+            return await _context.Otps.Include(y => y.OtpUser)
+                                .Where(x => x.OtpCode == otpCode)
+                                .FirstOrDefaultAsync();
+        }
+        public void DeleteOtp(string otpId)
+        {
+            var model= _context.Otps.First(c => c.Id == otpId);
+            _context.Remove(model);
+            _context.SaveChanges();            
+        }
     }
 }

@@ -11,6 +11,8 @@ using CustomerAPI.CustomerAPI.Services.Interfaces;
 using CustomerAPI.CustomerAPI.Models;
 using CustomerAPI.CustomerAPI.Services.Implementations;
 using CustomerAPI.CustomerAPI.Data;
+using MassTransit.MultiBus;
+using MassTransit;
 
 namespace CustomerAPI
 {
@@ -28,6 +30,14 @@ namespace CustomerAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMassTransit(x => {
+                x.UsingRabbitMq((ctx, config) =>
+                {
+                    config.Host("amqp://guest:guest@localhost:5672");
+                });
+            });
+            //services.AddMassTransitHostedService();
+
             services.AddTransient<ICustomerService, CustomerService>();
 
             services.AddDbContextExtension(Configuration, _env);
